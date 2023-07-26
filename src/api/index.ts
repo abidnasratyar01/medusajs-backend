@@ -5,6 +5,7 @@ import { authenticate, ConfigModule } from "@medusajs/medusa";
 import { getConfigFile } from "medusa-core-utils";
 import { attachStoreRoutes } from "./routes/store";
 import { attachAdminRoutes } from "./routes/admin";
+import auditCustomer from "./routes/store/auditCustomer";
 
 export default (rootDirectory: string): Router | Router[] => {
   // Read currently-loaded medusa config
@@ -39,12 +40,14 @@ export default (rootDirectory: string): Router | Router[] => {
   const storeRouter = Router();
   const adminRouter = Router();
 
+  auditCustomer(storeCorsOptions, router);
+
   // Attach these routers to the root routes
   router.use("/store", storeRouter);
   router.use("/admin", adminRouter);
 
   // Attach custom routes to these routers
-  attachStoreRoutes(storeRouter);
+  attachStoreRoutes(storeCorsOptions, storeRouter);
   attachAdminRoutes(adminRouter);
 
   return router;

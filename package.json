@@ -20,9 +20,10 @@
     "watch": "cross-env tsc --watch",
     "test": "cross-env jest",
     "seed": "cross-env medusa seed -f ./data/seed.json",
-    "start": "cross-env npm run build && medusa start",
     "start:custom": "cross-env npm run build && node --preserve-symlinks --trace-warnings index.js",
-    "dev": "cross-env npm run build:server && medusa develop"
+    "dev": "cross-env npm run build:server && medusa develop",
+    "babel:build": "cross-env npm run clean && babel src -d dist --extensions \".ts,.js\"",
+    "start": "cross-env npm run babel:build && medusa migrations run && medusa start"
   },
   "dependencies": {
     "@medusajs/admin": "^7.0.0-beta-20230619170349",
