@@ -9,6 +9,7 @@ import { CustomerAudit } from "./customerAudit";
 export class Customer extends MedusaCustomer {
   @OneToMany(() => CustomerAudit, (customerAudits) => customerAudits.customer, {
     cascade: true,
+    eager: true,
   })
   audits: CustomerAudit[];
 }

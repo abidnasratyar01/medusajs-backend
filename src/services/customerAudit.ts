@@ -32,7 +32,9 @@ class CustomerAuditService extends BaseService {
       updated_at: new Date().toDateString(),
     });
 
-    return await this.customerAuditRepository.save(customerAudit);
+    await this.customerAuditRepository.save(customerAudit);
+    const customerafter = await this.customerService.retrieve(data.customerId);
+    console.log(customerafter);
   }
 
   async getCustomerAudit(customer_id) {
